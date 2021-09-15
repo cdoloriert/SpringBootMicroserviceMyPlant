@@ -26,6 +26,14 @@ public class PlantDiaryController {
 		return "start";
 	}	
 	
+	/***
+	 * Gets all specimen
+	 * 
+	 * 200: success
+	 * 
+	 * @param specimen
+	 * @return ResponseEntity
+	 */
 	@GetMapping("specimens")
 	public ResponseEntity getAll() {		
 		return new ResponseEntity(HttpStatus.OK);		
