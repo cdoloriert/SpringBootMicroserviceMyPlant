@@ -1,9 +1,9 @@
-package com.cd.enterprise.config;
+package com.cd.plantdairyservice.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.cd.enterprise"})
+@SpringBootApplication(scanBasePackages = {"com.cd.plantdairyservice"})
 public class PlantdairyserviceApplication {
 
 	public static void main(String[] args) {
