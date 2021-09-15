@@ -39,6 +39,14 @@ public class PlantDiaryController {
 		return new ResponseEntity(HttpStatus.OK);		
 	}
 	
+	/***
+	 * Get specimen by id
+	 * 
+	 * 201: success
+	 * 409: unable
+	 * @param specimen
+	 * @return ResponseEntity
+	 */
 	@GetMapping("specimens/{id}")
 	public ResponseEntity getSpecimenById(
 			@PathVariable String id
@@ -47,7 +55,7 @@ public class PlantDiaryController {
 	}
 	
 	/***
-	 * Create a new specimen
+	 * Create a new specimen from new points
 	 * 
 	 * 201: success
 	 * 409: unable
