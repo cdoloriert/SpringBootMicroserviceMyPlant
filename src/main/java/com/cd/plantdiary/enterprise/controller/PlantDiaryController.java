@@ -1,4 +1,4 @@
-package com.cd.plantdairyservice.controller;
+package com.cd.plantdiary.enterprise.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cd.plantdairyservice.dto.Specimen;
+import com.cd.plantdiary.enterprise.dto.Specimen;
 
 /***
  * Class controller

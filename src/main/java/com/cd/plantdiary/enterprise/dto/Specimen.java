@@ -1,4 +1,4 @@
-package com.cd.plantdairyservice.dto;
+package com.cd.plantdiary.enterprise.dto;
 
 import lombok.Data;
 
@@ -8,4 +8,5 @@ public class Specimen {
 	private String id;
 	private String name;
 	private String size;
+	private String description;
 }
