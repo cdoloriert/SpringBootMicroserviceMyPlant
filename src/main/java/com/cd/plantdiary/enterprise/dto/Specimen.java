@@ -9,4 +9,6 @@ public class Specimen {
 	private String name;
 	private String size;
 	private String description;
+	private String latitude;
+	private String longtude;
 }

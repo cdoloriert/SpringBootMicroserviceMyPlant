@@ -12,4 +12,6 @@ public interface ISpecimenService {
 	 */
 	Specimen fetchById(int id);
 
+	Specimen save(Specimen specimen) throws Exception;
+
 }
