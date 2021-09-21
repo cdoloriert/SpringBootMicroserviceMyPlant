@@ -1,13 +1,17 @@
 package com.cd.plantdiary.enterprise.service;
 
-import org.springframework.stereotype.Component;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cd.plantdiary.enterprise.dao.ISpecimenDAO;
 import com.cd.plantdiary.enterprise.dto.Specimen;
 
-@Component
+@Service
 public class SpecimenServiceStud implements ISpecimenService{
 
+	@Autowired
 	private ISpecimenDAO specimenDAO;
 	
 	public SpecimenServiceStud() {}
@@ -18,16 +22,22 @@ public class SpecimenServiceStud implements ISpecimenService{
 	
 	@Override
 	public Specimen fetchById(int id) {
-		Specimen specimen = new Specimen();
-		specimen.setDescription("easter buds");
-		specimen.setId("83");		
-		return specimen;
-
+		return specimenDAO.fetch(id);
 	}
 
 	@Override
 	public Specimen save(Specimen specimen) throws Exception {			
-		return specimenDAO.save(specimen);	
+		return specimenDAO.save(specimen);			
+	}
+
+	@Override
+	public List<Specimen> fetchAll() {
+		return specimenDAO.fetchAll();		
+	}
+
+	@Override
+	public void delete(int id) throws Exception {
+		specimenDAO.delete(id);
 		
 	}
 

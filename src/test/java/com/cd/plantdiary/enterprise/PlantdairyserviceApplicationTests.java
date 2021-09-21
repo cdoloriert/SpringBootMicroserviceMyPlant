@@ -39,8 +39,17 @@ class PlantdairyserviceApplicationTests {
 	@Test
 	void fetchSpecimeById_returnsById83() throws Exception {
 		givenSpecimenDataAreAvailable();
+		whenSpecimen83AddedIsRedbud();
 		whenSearchSpecimenWithId83();
 		thenReturnOneEsternReboundSpecimenfor83();
+	}
+
+	private void whenSpecimen83AddedIsRedbud() {
+		Specimen redbud = new Specimen();
+		redbud.setId("83");
+		redbud.setDescription("easter buds");
+		Mockito.when(specimenDAO.fetch(83)).thenReturn(redbud);
+		
 	}
 
 	private void givenSpecimenDataAreAvailable() throws Exception {
@@ -69,12 +78,12 @@ class PlantdairyserviceApplicationTests {
 
 	private void whenUserCreatesNewSpecimenAndSaves() {
 		specimen.setLatitude("39.89");
-		specimen.setLongtude("-84.00");
+		specimen.setLongitude("-84.00");
 	}
 
 	private void thenCreateNewSpecimenAndReturnIt() throws Exception {
 		Specimen createdSpecimen = specimenService.save(specimen);		
-		assertEquals(specimen, null);
+		assertEquals(specimen, createdSpecimen);
 		
 		verify(specimenDAO, atLeastOnce()).save(specimen);
 		
