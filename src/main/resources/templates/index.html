@@ -1,34 +1,67 @@
 <!DOCTYPE HTML>
+<html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8" />
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<title>Plant diary</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
 
 <body>
+	<div th:replace="fragments/topnav :: navbar">
+	</div>
+
 	<h1>Plants are wonderful</h1>
 	<p th:text="${specimen}" />
 
+	<form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" method="GET"> <br />
 
-	<form action="#" th:action="@{/plants}" method="GET">
-		<Label for="searchTerm">Search</label> <input type="text" name="searchTerm" id="searchTerm" /> 
-		<button name="submit" type="submit" value="0">Search</button>
-	</form>
+		<div class="input-group input-group-sm mb-3">
+			<span class="input-group-text" id="latitude">Latitude</span>
+			<input type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="latitude" th:field="*{latitude}">
+		</div>
 
+		<div class="input-group input-group-sm mb-3">
+			<span class="input-group-text" id="longitude">Longitude</span>
+			<input type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="longitude" th:field="*{longitude}">
+		</div>
 
+		<div class="input-group input-group-sm mb-3">
+			<span class="input-group-text" id="description">Description</span>
+			<input type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{description}">
+		</div>
 
+		<div class="input-group input-group-sm mb-3">
+			<span class="input-group-text" id="plantId">Plant</span>
+			<input type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="plantId" th:field="*{plantId}">
+		</div>
 
-	<!-- -->
-	<form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" method="GET"><br />
-		<label>Latitude</label> <input type="text" name="latitude" th:field="*{latitude}" /> <br />
-		<label>Longitude</label> <input type="text" name="longitude" th:field="*{longitude}" /> <br />
-		<label>Description</label> <input type="text" name="description" th:field="*{description}" /> <br />
-		<label>Plant</label> <input type="text" name="plantId" th:field="*{plantId}" /> <br />
-		<label>Specimen</label> <input type="text" name="id" th:field="*{id}" /> <br />
+		<div class="input-group input-group-sm mb-3">
+			<span class="input-group-text" id="id">Specimen</span>
+			<input type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="id" th:field="*{id}">
+		</div>
+
 		<button name="submit" type="submit" value="0">Submit</button>
 	</form>
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+		integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+		integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+		crossorigin="anonymous"></script>
 
 </body>
 

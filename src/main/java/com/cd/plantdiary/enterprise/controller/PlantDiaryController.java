@@ -53,6 +53,19 @@ public class PlantDiaryController {
 
 		return modelAndView;
 	}
+	
+	
+	@GetMapping("/sustainability")
+	public ModelAndView sustainability(Model model) {
+		ModelAndView modelAndView = new ModelAndView("sustainability");
+		
+
+		modelAndView.addObject("", null);
+
+		return modelAndView;
+	}
+	
+	
 
 	@GetMapping("/saveSpecimen")
 	public ModelAndView saveSpecimen(Specimen specimen) {
