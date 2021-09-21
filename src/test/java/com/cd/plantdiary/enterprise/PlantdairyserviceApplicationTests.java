@@ -78,7 +78,7 @@ class PlantdairyserviceApplicationTests {
 
 	private void whenUserCreatesNewSpecimenAndSaves() {
 		specimen.setLatitude("39.89");
-		specimen.setLongtude("-84.00");
+		specimen.setLongitude("-84.00");
 	}
 
 	private void thenCreateNewSpecimenAndReturnIt() throws Exception {
