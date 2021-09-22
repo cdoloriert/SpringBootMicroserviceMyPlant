@@ -12,6 +12,27 @@
 		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<title>Plant diary</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<script type="text/javascript">
+		$(function () {
+			$("#Plant_Name").autocomplete({
+				source: "plantNamesAutocomplete",
+				minLength: 3,
+				select: function(event, ui) {
+					this.value = ui.item.label;
+					$("#Plant_Id").val(ui.item.value);
+					return false;
+				}
+			});
+		});
+	</script>
+
 </head>
 
 <body>
@@ -21,7 +42,7 @@
 	<h1>Plants are wonderful</h1>
 	<p th:text="${specimen}" />
 
-	<form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" method="GET"> <br />
+	<form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" method="POST"> <br />
 
 		<div class="input-group input-group-sm mb-3">
 			<span class="input-group-text" id="latitude">Latitude</span>
@@ -43,8 +64,8 @@
 
 		<div class="input-group input-group-sm mb-3">
 			<span class="input-group-text" id="plantId">Plant</span>
-			<input type="text" class="form-control" aria-label="Sizing example input"
-				aria-describedby="inputGroup-sizing-sm" name="plantId" th:field="*{plantId}">
+			<input id="Plant_Name" type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="plantName" >
 		</div>
 
 		<div class="input-group input-group-sm mb-3">
@@ -54,7 +75,18 @@
 		</div>
 
 		<button name="submit" type="submit" value="0">Submit</button>
+		
+		<input id="Plant_Id" type="hidden"  name="plantId" th:field="*{plantId}">
+		
 	</form>
+
+
+
+
+
+
+
+
 
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
 		integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"

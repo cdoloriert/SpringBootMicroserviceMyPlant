@@ -1,7 +1,7 @@
 <div th:fragment="navbar">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-			<a class="navbar-brand">My Plant Diary</a>			
+			<a class="navbar-brand">My Plant Diary</a>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
@@ -9,12 +9,19 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/sustainability">Sustainability</a>
-					</li>					
-				</ul>				
+					</li>
+				</ul>
 			</div>
 			<form class="d-flex" action="#" th:action="@{/plants}" method="GET">
 				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-					name="searchTerm" id="searchTerm">
+					name="searchTerm" id="searchTerm" list="Plant_Search">
+				<datalist id="Plant_Search">
+					<option value="Oak">que</option>
+					<option value="Maple">acer</option>
+					<option value="Pine">yy</option>
+					<option value="Spruce">www</option>
+					<option value="Oak Leaved Hydrangea">zzz</option>
+				</datalist>
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 		</div>

@@ -1,5 +1,7 @@
 package com.cd.plantdiary.enterprise.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cd.plantdiary.enterprise.dto.LabelValue;
+import com.cd.plantdiary.enterprise.dto.Plant;
 import com.cd.plantdiary.enterprise.dto.Specimen;
 import com.cd.plantdiary.enterprise.service.ISpecimenService;
 
@@ -67,16 +71,18 @@ public class PlantDiaryController {
 	
 	
 
-	@GetMapping("/saveSpecimen")
+	@PostMapping("/saveSpecimen")
 	public ModelAndView saveSpecimen(Specimen specimen) {
-		ModelAndView modelAndView = new ModelAndView("index");
+		ModelAndView modelAndView = null;
 		try {
 			specimenService.save(specimen);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			modelAndView = new ModelAndView("error");
+			return modelAndView;
 		}
-
+		modelAndView = new ModelAndView("index");
 		modelAndView.addObject("specimen", specimen);
 		return modelAndView;
 	}
@@ -122,17 +128,18 @@ public class PlantDiaryController {
 	 * @return ResponseEntity
 	 */
 	@PostMapping(value = "/specimens", consumes = "application/json", produces = "application/json")
-	public Specimen createSpecimen(@RequestBody Specimen specimen) {
-
+	public ResponseEntity createSpecimen(@RequestBody Specimen specimen) {
 		Specimen createdSpecimen = null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);		
 		try {
 			createdSpecimen = specimenService.save(specimen);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		return createdSpecimen;
+		return new ResponseEntity(createdSpecimen, headers, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/specimens/{id}")
@@ -148,13 +155,70 @@ public class PlantDiaryController {
 		}
 	}
 
-	@GetMapping("/plants")
+	@GetMapping(value="/plants", consumes = "application/json", produces = "application/json")
 	public ResponseEntity searchPlants(
 			@RequestParam(value = "searchTerm", required = false, defaultValue = "None") String searchTerm) {
 		
 		ModelAndView modelAndView = new ModelAndView("index");
-		return new ResponseEntity(HttpStatus.OK);
+		
+		try {
+			List<Plant> fetchedPlants = specimenService.fetchPlants(searchTerm);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			return new ResponseEntity(fetchedPlants, headers, HttpStatus.OK);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}		
 	}
+	
+	@GetMapping("/plants")
+	public ModelAndView searchPlantsForForm(
+			@RequestParam(value = "searchTerm", required = false, defaultValue = "None") String searchTerm) {
+		
+		ModelAndView modelAndView = null;
+		
+		try {
+			List<Plant> plants = specimenService.fetchPlants(searchTerm);
+			modelAndView = new ModelAndView("plants");
+			modelAndView.addObject("plants", plants);			
+			return modelAndView;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			modelAndView = new ModelAndView("error");
+		}
+		return modelAndView;		
+	}
+	
+	@GetMapping("/plantNamesAutocomplete")
+	@ResponseBody
+	public List<LabelValue> plantNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="")   String term){
+		
+		List<LabelValue> allPlantNames = new ArrayList<LabelValue>();
+		
+		try {
+			List<Plant> fetchedPlants = specimenService.fetchPlants(term);		
+			
+			for (Plant plant : fetchedPlants) {
+				LabelValue labelValue = new LabelValue();
+				labelValue.setLabel(plant.toString());
+				labelValue.setValue(plant.getId());
+				allPlantNames.add(labelValue);
+				
+				//allPlantNames.add(plant.toString());
+			}	
+			
+			return allPlantNames;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ArrayList<LabelValue>();
+		}
+		
+	}
+	
 	
 
 }
