@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.cd.plantdiary.enterprise.dao.IPlantDAO;
@@ -27,6 +29,7 @@ public class SpecimenService implements ISpecimenService{
 	}	
 	
 	@Override
+	@Cacheable(value="specimen", key="#id")
 	public Specimen fetchById(int id) {
 		return specimenDAO.fetch(id);
 	}
@@ -37,20 +40,21 @@ public class SpecimenService implements ISpecimenService{
 	}
 
 	@Override
+	@Cacheable(value="specimens")
 	public List<Specimen> fetchAll() {
 		return specimenDAO.fetchAll();		
 	}
 
 	@Override
+	@CacheEvict(value="specimen", key="#id")
 	public void delete(int id) throws Exception {
 		specimenDAO.delete(id);
 		
 	}
 
 	@Override
+	@Cacheable("plants")
 	public List<Plant> fetchPlants(String combinedName) throws IOException {
-		
-		
 		return plantDAO.fetchPlants(combinedName);
 	}
 
