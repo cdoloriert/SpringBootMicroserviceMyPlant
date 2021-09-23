@@ -16,7 +16,7 @@ public class SpecimenDAOStud implements ISpecimenDAO {
 	
 	@Override
 	public Specimen save(Specimen specimen) throws Exception {		
-		allSpecimens.put(specimen.getId(), specimen);		
+		allSpecimens.put(specimen.getSpecimenId(), specimen);		
 		return specimen;
 	}
 

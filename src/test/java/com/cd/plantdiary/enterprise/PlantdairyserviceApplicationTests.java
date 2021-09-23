@@ -46,7 +46,7 @@ class PlantdairyserviceApplicationTests {
 
 	private void whenSpecimen83AddedIsRedbud() {
 		Specimen redbud = new Specimen();
-		redbud.setId(83);
+		redbud.setSpecimenId(83);
 		redbud.setDescription("easter buds");
 		Mockito.when(specimenDAO.fetch(83)).thenReturn(redbud);
 		

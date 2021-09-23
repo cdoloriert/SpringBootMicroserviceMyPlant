@@ -12,8 +12,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cd.plantdiary.enterprise.dao.IPhotoDAO;
 import com.cd.plantdiary.enterprise.dao.IPlantDAO;
 import com.cd.plantdiary.enterprise.dao.ISpecimenDAO;
+import com.cd.plantdiary.enterprise.dto.Photo;
 import com.cd.plantdiary.enterprise.dto.Plant;
 import com.cd.plantdiary.enterprise.dto.Specimen;
 
@@ -25,6 +27,9 @@ public class SpecimenService implements ISpecimenService{
 	
 	@Autowired
 	private IPlantDAO plantDAO;
+	
+	@Autowired
+	private IPhotoDAO photoDAO;
 	
 	public SpecimenService() {}
 	
@@ -63,13 +68,12 @@ public class SpecimenService implements ISpecimenService{
 	}
 
 	@Override
-	public void saveImage(MultipartFile imageFile) throws IOException {
-		String folder = "/photos/";
-		byte[] bytes = imageFile.getBytes();		
-		Path path = Paths.get(folder + imageFile.getOriginalFilename());
-		Files.write(path, bytes);
-		
+	public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
+		photoDAO.save(photo);
+		photoDAO.saveImage(imageFile);
 		
 	}
+
+	
 
 }

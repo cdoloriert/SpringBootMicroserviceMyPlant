@@ -42,7 +42,7 @@
 	<h1>Plants are wonderful</h1>
 	<p th:text="${specimen}" />
 
-	<form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" method="POST"> <br />
+	<form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" enctype="multipart/form-data" method="POST"> <br />
 
 		<div class="input-group input-group-sm mb-3">
 			<span class="input-group-text" id="latitude">Latitude</span>
@@ -66,22 +66,13 @@
 			<span class="input-group-text" id="plantId">Plant</span>
 			<input id="Plant_Name" type="text" class="form-control" aria-label="Sizing example input"
 				aria-describedby="inputGroup-sizing-sm" name="plantName">
-		</div>
-
-		<div class="input-group input-group-sm mb-3">
-			<span class="input-group-text" id="id">Specimen</span>
-			<input type="text" class="form-control" aria-label="Sizing example input"
-				aria-describedby="inputGroup-sizing-sm" name="id" th:field="*{id}">
-		</div>
-
-		<button name="submit" type="submit" value="0">Submit</button>
+		</div>	
 
 		<input id="Plant_Id" type="hidden" name="plantId" th:field="*{plantId}">
-	</form>
+		<br />
 	
-	<form method="POST" enctype="multipart/form-data" action="/uploadImage">
 		<input type="file" name="imageFile"/>
-		<input type="submit" name="Upload"/>
+		<button name="submit" type="submit" value="0">Submit</button>
 	</form>
 
 
