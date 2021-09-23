@@ -50,8 +50,8 @@ public class PlantDiaryController {
 		specimen.setDescription("new specimen");
 		specimen.setLatitude("12.33");
 		specimen.setLongitude("2.44");
-		specimen.setPlantId("100000");
-		specimen.setId("1004");
+		specimen.setPlantId(1000);
+		specimen.setId(1004);
 
 		modelAndView.addObject("specimen", specimen);
 

@@ -13,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.cd.plantdiary.enterprise.dao.ISpecimenDAO;
 import com.cd.plantdiary.enterprise.dto.Specimen;
 import com.cd.plantdiary.enterprise.service.ISpecimenService;
-import com.cd.plantdiary.enterprise.service.SpecimenServiceStud;
+import com.cd.plantdiary.enterprise.service.SpecimenService;
 
 //@ContextConfiguration
 @SpringBootTest
@@ -46,7 +46,7 @@ class PlantdairyserviceApplicationTests {
 
 	private void whenSpecimen83AddedIsRedbud() {
 		Specimen redbud = new Specimen();
-		redbud.setId("83");
+		redbud.setId(83);
 		redbud.setDescription("easter buds");
 		Mockito.when(specimenDAO.fetch(83)).thenReturn(redbud);
 		
@@ -55,7 +55,7 @@ class PlantdairyserviceApplicationTests {
 	private void givenSpecimenDataAreAvailable() throws Exception {
 
 		Mockito.when(specimenDAO.save(specimen)).thenReturn(specimen);
-		specimenService = new SpecimenServiceStud(specimenDAO);
+		specimenService = new SpecimenService(specimenDAO);
 		
 
 	}
