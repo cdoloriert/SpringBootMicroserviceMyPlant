@@ -12,7 +12,7 @@ import com.cd.plantdiary.enterprise.dto.Plant;
 import com.cd.plantdiary.enterprise.dto.Specimen;
 
 @Service
-public class SpecimenServiceStud implements ISpecimenService{
+public class SpecimenService implements ISpecimenService{
 
 	@Autowired
 	private ISpecimenDAO specimenDAO;
@@ -20,9 +20,9 @@ public class SpecimenServiceStud implements ISpecimenService{
 	@Autowired
 	private IPlantDAO plantDAO;
 	
-	public SpecimenServiceStud() {}
+	public SpecimenService() {}
 	
-	public SpecimenServiceStud(ISpecimenDAO specimenDAO) {
+	public SpecimenService(ISpecimenDAO specimenDAO) {
 		this.specimenDAO = specimenDAO;
 	}	
 	

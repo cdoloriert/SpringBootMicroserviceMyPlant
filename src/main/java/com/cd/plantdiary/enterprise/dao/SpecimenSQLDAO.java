@@ -1,5 +1,6 @@
 package com.cd.plantdiary.enterprise.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +23,23 @@ public class SpecimenSQLDAO implements ISpecimenDAO {
 
 	@Override
 	public List<Specimen> fetchAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Specimen> allSpecimens = new ArrayList<Specimen>();
+		Iterable<Specimen> specimens = specimenRepository.findAll();		
+		for(Specimen specimen : specimens) {
+			allSpecimens.add(specimen);
+		}
+		
+		return allSpecimens;
 	}
 
 	@Override
 	public Specimen fetch(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return specimenRepository.findById(id).get();		
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
+		specimenRepository.deleteById(id);		
 	}
 
 }
