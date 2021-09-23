@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cd.plantdiary.enterprise.dto.LabelValue;
@@ -219,6 +220,23 @@ public class PlantDiaryController {
 		
 	}
 	
+	@PostMapping("/uploadImage")
+	public ModelAndView uploadImage(@RequestParam("imageFile") MultipartFile imageFile) {
+		ModelAndView modelAndView = null;
+		
+		try {
+			specimenService.saveImage(imageFile);
+			modelAndView = new ModelAndView("index");
+			Specimen specimen =  new Specimen();
+			modelAndView.addObject("specimen", specimen);	
+		} catch (IOException e) {			
+			e.printStackTrace();
+			modelAndView = new ModelAndView("error");
+			
+		}
+		
+		return modelAndView;
+	}
 	
 
 }

@@ -24,7 +24,7 @@
 			$("#Plant_Name").autocomplete({
 				source: "plantNamesAutocomplete",
 				minLength: 3,
-				select: function(event, ui) {
+				select: function (event, ui) {
 					this.value = ui.item.label;
 					$("#Plant_Id").val(ui.item.value);
 					return false;
@@ -65,7 +65,7 @@
 		<div class="input-group input-group-sm mb-3">
 			<span class="input-group-text" id="plantId">Plant</span>
 			<input id="Plant_Name" type="text" class="form-control" aria-label="Sizing example input"
-				aria-describedby="inputGroup-sizing-sm" name="plantName" >
+				aria-describedby="inputGroup-sizing-sm" name="plantName">
 		</div>
 
 		<div class="input-group input-group-sm mb-3">
@@ -75,9 +75,13 @@
 		</div>
 
 		<button name="submit" type="submit" value="0">Submit</button>
-		
-		<input id="Plant_Id" type="hidden"  name="plantId" th:field="*{plantId}">
-		
+
+		<input id="Plant_Id" type="hidden" name="plantId" th:field="*{plantId}">
+	</form>
+	
+	<form method="POST" enctype="multipart/form-data" action="/uploadImage">
+		<input type="file" name="imageFile"/>
+		<input type="submit" name="Upload"/>
 	</form>
 
 
