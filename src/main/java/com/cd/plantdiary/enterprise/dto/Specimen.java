@@ -12,8 +12,8 @@ import lombok.Data;
 public class Specimen {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)	
+	private int specimenId;
 	private int plantId;
 	private String name;
 	private String size;
