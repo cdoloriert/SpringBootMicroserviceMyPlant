@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,16 +29,12 @@ import com.cd.plantdiary.enterprise.dto.Plant;
 import com.cd.plantdiary.enterprise.dto.Specimen;
 import com.cd.plantdiary.enterprise.service.ISpecimenService;
 
-/***
- * Class controller
- * 
- * @author cd
- *
- */
+
 @RestController
-//@RequestMapping("/")
 public class PlantDiaryController {
 
+	Logger log = LoggerFactory.getLogger(this.getClass());	
+	
 	@Autowired
 	ISpecimenService specimenService;
 
@@ -119,12 +117,15 @@ public class PlantDiaryController {
 	@DeleteMapping(value = "/specimens/{id}")
 	public ResponseEntity deleteSpecimen(@PathVariable String id) {
 
+		log.debug("entering specimen endpoint");
 		try {
 			specimenService.delete(Integer.parseInt(id));
+			log.info("specimen was deleted");
 			return new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.error("unable to delete" + id + e.getMessage(), e);
 			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -189,7 +190,7 @@ public class PlantDiaryController {
 
 	@PostMapping("/saveSpecimen")
 	public ModelAndView saveSpecimen(Specimen specimen, @RequestParam("imageFile") MultipartFile imageFile) {
-		ModelAndView modelAndView = null;
+		ModelAndView modelAndView = new ModelAndView();
 		try {
 			Specimen createdSpecimen = specimenService.save(specimen);
 		} catch (Exception e) {
@@ -197,24 +198,36 @@ public class PlantDiaryController {
 			modelAndView = new ModelAndView("error");
 			return modelAndView;
 		}
-		modelAndView = new ModelAndView("index");
-		modelAndView.addObject("specimen", specimen);
-
-		try {
-
-			Photo photo = new Photo();
+		//modelAndView = new ModelAndView("index");
+		
+		Photo photo = new Photo();
+		try {			
 			photo.setFileName(imageFile.getOriginalFilename());
-			photo.setPath("/photo/");
+			//photo.setPath("/photo/");
 			photo.setSpecimen(specimen);
 			specimenService.saveImage(imageFile, photo);
-			modelAndView = new ModelAndView("index");
-			modelAndView.addObject("specimen", specimen);
+			modelAndView = new ModelAndView("success");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			modelAndView = new ModelAndView("error");
+			return modelAndView;
 		}
+		
+		modelAndView.addObject("specimen", specimen);
+		modelAndView.addObject("photo", photo);
+		
+		return modelAndView;
+	}
+	
+	@GetMapping(value = "/specimensByPlant/{plantId}")
+	public ModelAndView specimensByPlant(@PathVariable("plantId") int plantId) {
+		ModelAndView modelAndView = new ModelAndView("specimenDetails");			
+		List<Specimen> specimens = specimenService.fetchSpecimensByPlantId(plantId);		
+		modelAndView.addObject("specimens", specimens);	
 
 		return modelAndView;
 	}
+	
 
 }

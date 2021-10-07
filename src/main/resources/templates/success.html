@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+	<title>Plant diary</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<script type="text/javascript">
+		$(function () {
+			$("#Plant_Name").autocomplete({
+				source: "plantNamesAutocomplete",
+				minLength: 3,
+				select: function (event, ui) {
+					this.value = ui.item.label;
+					$("#Plant_Id").val(ui.item.value);
+					return false;
+				}
+			});
+		});
+	</script>
+
+</head>
+
+<body>
+	<div th:replace="fragments/topnav :: navbar">
+	</div>
+
+	<h1>Plants are wonderful</h1>
+	<p th:text="${specimen}" />
+
+	<form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" enctype="multipart/form-data" method="POST"> <br />
+
+		<div class="input-group input-group-sm mb-3">
+			<span class="input-group-text" id="latitude">Latitude</span>
+			<input type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="latitude" th:field="*{latitude}">
+		</div>
+
+		<div class="input-group input-group-sm mb-3">
+			<span class="input-group-text" id="longitude">Longitude</span>
+			<input type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="longitude" th:field="*{longitude}">
+		</div>
+
+		<div class="input-group input-group-sm mb-3">
+			<span class="input-group-text" id="description">Description</span>
+			<input type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{description}">
+		</div>
+
+		<div class="input-group input-group-sm mb-3">
+			<span class="input-group-text" id="plantId">Plant</span>
+			<input id="Plant_Name" type="text" class="form-control" aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-sm" name="plantName">
+		</div>	
+
+		<input id="Plant_Id" type="hidden" name="plantId" th:field="*{plantId}">
+		<br />
+	
+		<input type="file" name="imageFile"/>
+		<button name="submit" type="submit" value="0">Submit</button>
+	</form>
+	
+	<img th:src="@{${'/photos/' + photo.fileName}}" alt="Photo upload confirmation" />
+	
+	
+
+
+
+
+
+
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+		integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+		integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>
