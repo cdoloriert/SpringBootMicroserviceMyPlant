@@ -35,6 +35,12 @@ public class SpecimenDAOStud implements ISpecimenDAO {
 	public void delete(int id) {
 		allSpecimens.remove(id);		
 	}
+
+	@Override
+	public List<Specimen> fetchSpecimensByPlantId(int plantId) {
+		// TODO Auto-generated method stub
+		return new ArrayList<Specimen>();
+	}
 	
 	
 

@@ -14,4 +14,6 @@ public interface ISpecimenDAO {
 
 	void delete(int id);
 
+	List<Specimen> fetchSpecimensByPlantId(int plantId);
+
 }
